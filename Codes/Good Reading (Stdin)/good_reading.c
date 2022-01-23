@@ -9,7 +9,7 @@ and your type ('i'=int,'f'=float,'d'=double,'s'=string, if none then reads a cha
 Outputs: None
 Return: none
 
-Objective: Reads stdin according to your entry if some error occurs, then 
+Objective: Reads stdin according to your entry, if some error occurs, then 
 Displays an error message and asks again for the keyboard input
 */
 int good_reading (void *ptr, int size_vectors, char type) {
