@@ -19,7 +19,7 @@ int good_reading (void *ptr, int size_vectors, char type) {
 		case 'i': 																	// let's read an integer
 			for (k = 0; k < size_vectors; k ++) {									// k to iterate in a possible vector
 				printf ("\nPlease write info %d:", k + 1); 							// asks for information
-				While (scanf ("%d", ((int *) ptr) + k)! = 1) {						// If the scanf find something wrong again piece (scanf returns EOF or 0)
+				while (scanf ("%d", ((int *) ptr) + k)!= 1) {						// If the scanf find something wrong again piece (scanf returns EOF or 0)
 				printf ("\nError try again: "); 									// Displays user error
 				clean_buffer(); 													// Clean keypad garbage
 				} clean_buffer (); 													// Clean keypad garbage
@@ -28,7 +28,7 @@ int good_reading (void *ptr, int size_vectors, char type) {
 		case 'f': 																	// let's read a float
 			for (k = 0; k < size_vectors; k ++) {									// k to iterate in a possible vector
 				printf ("\nPlease write info %d:", k + 1); 							// asks for information
-				While (scanf ("%f", ((float *) ptr) + k)! = 1) {					// If the scanf find something wrong again piece (scanf returns EOF or 0)
+				while (scanf ("%f", ((float *) ptr) + k)!= 1) {						// If the scanf find something wrong again piece (scanf returns EOF or 0)
 				printf ("\nError try again: "); 									// Displays user error
 				clean_buffer(); 													// Clean keypad garbage
 				} clean_buffer (); 													// Clean keypad garbage
@@ -37,7 +37,7 @@ int good_reading (void *ptr, int size_vectors, char type) {
 		case 'd': 																	// let's read a double
 			for (k = 0; k < size_vectors; k ++) {									// k to iterate in a possible vector
 				printf ("\nPlease write info %d:", k + 1); 							// asks for information
-				While (scanf ("%lf", ((double *) ptr) + k)! = 1) {					// If the scanf find something wrong again piece (scanf returns EOF or 0)
+				while (scanf ("%lf", ((double *) ptr) + k)!= 1) {					// If the scanf find something wrong again piece (scanf returns EOF or 0)
 				printf ("\nError try again: "); 									// Displays user error
 				clean_buffer(); 													// Clean keypad garbage
 				} clean_buffer (); 													// Clean keypad garbage
@@ -45,7 +45,7 @@ int good_reading (void *ptr, int size_vectors, char type) {
 		break;
 		case 's': 																	// let's read a string
 			printf ("\nPlease insert your text:"); 									// Ask the user the text
-			while (fgets ((char *) ptr, size_vectors, stdin) == null) {				// if I could not read we null
+			while (fgets ((char *) ptr, size_vectors, stdin) == NULL) {				// if I could not read we null
 			printf ("\nError try again: "); 										// Displays user error
 			clean_buffer (); 														// Clean keypad garbage
 			} clean_buffer (); 														// Clean keypad garbage
@@ -54,7 +54,7 @@ int good_reading (void *ptr, int size_vectors, char type) {
 		default: 																	// let's read a char
 			for (k = 0; k < size_vectors; k ++) {									// k to iterate in a possible vector
 				printf ("\nPlease write info %d:", k + 1); 							// asks for information
-				While (scanf ("%c", ((char *) ptr) + k)! = 1) {						// If the scanf find something wrong again piece (scanf returns EOF or 0)
+				while (scanf ("%c", ((char *) ptr) + k)!= 1) {						// If the scanf find something wrong again piece (scanf returns EOF or 0)
 				printf ("\nError try again:"); 										// Displays user error
 				clean_buffer(); 													// Clean keypad garbage
 				} clean_buffer (); 													// Clean keypad garbage
@@ -80,6 +80,6 @@ void clean_buffer () {
     char ch = 0; 																	// declares char for reading
     do {
     ch = fgetc (stdin); 															// reads character by character to clean stdin
-    } while (ch! = '\n' && ch! = EOF); 												// If a line break was found or an EOF stops
+    } while (ch!= '\n' && ch!= EOF); 												// If a line break was found or an EOF stops
     if(ch == EOF) clearerr (stdin); 												// If an EOF was found, reset Stdin
 }
