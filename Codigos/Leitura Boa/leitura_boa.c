@@ -1,47 +1,75 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <stdarg.h>
-#include <math.h>
 
-void limpa_buffer() {
-    int caracter=0;
-    do {
-    caracter = fgetc(stdin);
-    } while (caracter != '\n' && caracter!=EOF);
-    if(caracter==EOF)clearerr(stdin);
+int leitura_boa(void *ptr,int tam,char tipo){
+	int k=1;
+	int erro=0;
+	switch (tipo)
+	{
+	case 'i':											//Vamos ler inteiros
+		for(k=0;k<tam;k++){								//K para iterar num possivel vetor
+			printf("\nDigite a informacao %d: ",k+1);	//Pede informação
+            while(scanf("%d",((int*)ptr)[k])!=1){				//Se o scanf encontrar algo errado peça novamente (Scanf retornar EOF ou 0)
+				printf("\n Erro digite novamente: ");	//Exibe erro para usuário
+				limpa_buffer();							//Limpa lixo do teclado
+			}limpa_buffer();							//Limpa lixo do teclado
+		}//END FOR(k=0;k<tam;k++)
+		break;
+	case 'f':											//Vamos ler floats
+		for(k=0;k<tam;k++){								//K para iterar num possivel vetor
+			printf("\nDigite a informacao %d: ",k+1);	//Pede informação
+			while(scanf("%f",((float*)ptr)[k])!=1){				//Se o scanf encontrar algo errado peça novamente (Scanf retornar EOF ou 0)
+				printf("\n Erro digite novamente: ");	//Exibe erro para usuário
+				limpa_buffer();							//Limpa lixo do teclado
+			}limpa_buffer();							//Limpa lixo do teclado
+		}//END FOR(k=0;k<tam;k++)
+		break;
+	case 'd':											//Vamos ler doubles
+		for(k=0;k<tam;k++){								//K para iterar num possivel vetor
+			printf("\nDigite a informacao %d: ",k+1);	//Pede informação
+			while(scanf("%lf",((double*)ptr)[k])!=1){				//Se o scanf encontrar algo errado peça novamente (Scanf retornar EOF ou 0)
+				printf("\n Erro digite novamente: ");	//Exibe erro para usuário
+				limpa_buffer();							//Limpa lixo do teclado
+			}limpa_buffer();							//Limpa lixo do teclado
+		}//END FOR(k=0;k<tam;k++)
+		break;
+	case 's':											//Vamos ler uma string
+		printf("\nDigite a seguir: ");					//Pede ao usuário o texto
+		while(fgets((char*)ptr,tam,stdin)==NULL){				//Se nao consegui ler temos NULL
+			printf("\nErro Digite Novamente");			//Exibe erro para usuário
+			limpa_buffer();								//Limpa lixo do teclado
+		}limpa_buffer();								//Limpa lixo do teclado
+        if(*(((char*)ptr)+tam-1)=='\n')*((((char*)ptr)+strcspn((char*)ptr, "\n")))=0;  //Retira possível \n do vetor
+		break;
+	default:											//Vamos ler um char
+		for(k=0;k<tam;k++){								//K para iterar num possivel vetor
+			printf("\nDigite a informacao %d: ",k+1);	//Pede informação
+			while(scanf("%c",((char*)ptr)[k])!=1){				//Se o scanf encontrar algo errado peça novamente (Scanf retornar EOF ou 0)
+				printf("\n Erro digite novamente: ");	//Exibe erro para usuário
+				limpa_buffer();							//Limpa lixo do teclado
+			}limpa_buffer();							//Limpa lixo do teclado
+		}//END FOR(k=0;k<tam;k++)
+			break;
+	}
+	return k;
 }
 
-int main()
-{
+/*
+Função: Limpa_Buffer
+Autor: Baseado em outras pessoas, modificada por Henrique.
+Entradas:Stdin
+Saídas: Nenhuma
+Retorno: Nenhum
 
-	int ano;
-	printf("tamanho do char é: %dBytes\n",sizeof(char));
-	printf("Digite um mes em numero: ");
-
-	char *erro_leitura,teclado_entrada[3];
-	//Declara ponteiro para os erros e buffer para o Teclado
-	while(1)
-	{
-		erro_leitura=fgets(teclado_entrada,3,stdin);					//Le teclado e atribue um ponteiro como retorno para verificar erros
-		limpa_buffer();													//Limpa o Buffer para a possivel proxima leitura
-		if(erro_leitura!=NULL || (teclado_entrada[0]!='\n'
-									&& strlen(teclado_entrada)!=1) )	//Houve erro de leitura? o Usuario digitou "enter"?
-		{
-			erro_leitura=(char *)malloc(1*sizeof(char));				//Se não houve, aloque uma char para o ponteiro
-			*erro_leitura=(char)sscanf(teclado_entrada,"%d",&ano);		//Atribua
-
-			if(*erro_leitura!=-1 && *erro_leitura!=0 && (ano>0 && ano<13))
-			{
-				free(erro_leitura);
-				break;
-			}
-			free(erro_leitura);
-		}
-		printf("\n Erro digite novamente: ");
-	}//End While(1)
-
-	printf("SAIU");
-
-    return 0;
+Objetivo: Consumir caracteres
+adicionais presentes no stdin.
+Se a função encontrar um EOF ela
+Reseta o stdin para futuras leituras
+*/
+void limpa_buffer() {
+    char caracter=0;									//Declara char para a leitura
+    do {
+    caracter = fgetc(stdin);							//Le caracter por caracter ate "zerar" stdin
+    } while (caracter != '\n' && caracter!=EOF);		//Se foi encontrado uma quebra de linha ou um erro saia
+    if(caracter==EOF)clearerr(stdin);					//Se foi encontrado um EOF, resete stdin
 }
